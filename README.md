@@ -29,7 +29,7 @@ Imagine you want to refactor an endpoint on your backend api and want to make su
   end
 
   # this will call your backend and 
-  # dump the result in parsing.yml
+  # dump the result in refactor.yml
   # let's say the response is : [{"username"=>"Michael Bensoussan"}]
   Recorder.dump_to('refactor.yml') do
     HTTParty.get('http://my_backend/users').parsed_response
