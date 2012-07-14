@@ -19,7 +19,12 @@ module Recorder
     #     c.records_dir = 'records/'
     #   end
     def config(&block)
-      block_given? ? @@config.tap(&block) : @@config
+      if block_given?
+        @@config = Config.new
+        @@config.tap(&block)
+      else
+        @@config
+      end
     end
 
     def dump_to file
@@ -33,7 +38,7 @@ module Recorder
         yaml_result = result.to_yaml
         if File.exist? file
           old_result = YAML.load_file(file)
-          if old_result != yaml_result
+          if old_result != result
             outputs "Recorder: result is different from last run".red
             Differ.format = :color
             outputs Differ.diff_by_line(yaml_result.to_s, old_result.to_s)
@@ -42,7 +47,7 @@ module Recorder
           end
         else
           File.open(file, 'w' ) do |out|
-            YAML.dump(yaml_result, out)
+            YAML.dump(result, out)
           end
           outputs "Recorder: recorded in #{file}".green
         end
@@ -55,7 +60,7 @@ module Recorder
           result = yield
           yaml_result = result.to_yaml
           File.open(file, 'w' ) do |out|
-            YAML.dump(yaml_result, out)
+            YAML.dump(result, out)
           end
           outputs "Recorder: recorded in #{file}".green
           return result
