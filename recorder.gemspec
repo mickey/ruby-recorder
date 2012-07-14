@@ -4,8 +4,8 @@ require File.expand_path('../lib/recorder/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Michael Bensoussan"]
   gem.email         = ["mbensoussan.is@gmail.com"]
-  gem.description   = %q{Recorder dumps the result of your ruby code to a YAML file for faster tests or to compare the result between two execution.}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Ruby Recorder dumps the result of your ruby code to a YAML file for faster tests or to compare the result between two execution.}
+  gem.summary       = %q{Dump your ruby to YAML for refactoring and faster tests}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
