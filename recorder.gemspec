@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["mbensoussan.is@gmail.com"]
   gem.description   = %q{Ruby Recorder dumps the result of your ruby code to a YAML file for faster tests or to compare the result between two execution.}
   gem.summary       = %q{Dump your ruby to YAML for refactoring and faster tests}
-  gem.homepage      = ""
+  gem.homepage      = "http://mickey.github.com/ruby-recorder"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
