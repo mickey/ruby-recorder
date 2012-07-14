@@ -5,5 +5,8 @@ gemspec
 
 group :development do
   gem 'minitest'
-  #gem 'pry'
+end
+
+group :test do
+  gem 'rake'
 end
