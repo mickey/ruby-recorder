@@ -1,5 +1,7 @@
 # Ruby Recorder
 
+[![Build Status](https://secure.travis-ci.org/[mickey]/[ruby-recorder].png)](http://travis-ci.org/[mickey]/[ruby-recorder])
+
 Recorder dumps the result of your ruby code to a YAML file for faster tests or to compare the result between two execution.
 
 ## Installation
