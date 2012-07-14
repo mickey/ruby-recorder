@@ -1,12 +1,12 @@
-# Recorder
+# Ruby Recorder
 
-Recorder dumps the result of your ruby code to a YAML file for fast tests or to compare the result between two runs.
+Recorder dumps the result of your ruby code to a YAML file for faster tests or to compare the result between two execution.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'recorder'
+    gem 'ruby-recorder'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install recorder
+    $ gem install ruby-recorder
 
 ## Exemples
 
