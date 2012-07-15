@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ### Refactor
 
-Imagine you want to refactor an endpoint on your backend api and want to make sure the result is the same:
+Imagine you want to refactor an endpoint on your backend api and want to make sure the response is the same:
 
 ```
   Recorder.config do |c|
@@ -30,21 +30,21 @@ Imagine you want to refactor an endpoint on your backend api and want to make su
 
   # this will call your backend and 
   # dump the result in parsing.yml
-  # let's say the result will be : [{"username"=>"Michael Bensoussan"}]
+  # let's say the response is : [{"username"=>"Michael Bensoussan"}]
   Recorder.dump_to('refactor.yml') do
     HTTParty.get('http://my_backend/users').parsed_response
   end
 
   # this will call your backend and compare the result to
   # what's in refactor.yml ([{"username"=>"Michael Bensoussan"}])
-  # let's say the new result is [{"username"=>"Michael"}]
+  # let's say the new response is [{"username"=>"Michael"}]
   Recorder.dump_to('refactor.yml') do
     HTTParty.get('http://my_backend/users').parsed_response
   end
 
 ```
 
-Executing this code will outputs a diff :
+Executing this code will outputs a (colored) diff :
 
 ```
   Recorder: result is different from last run
@@ -90,7 +90,7 @@ The first time you run this test, you will call the backend but for all the foll
 
 ### records_dir
 
-The `records_dir` option sets the directory in which you're records will be saved.
+The `records_dir` option sets the directory where your records will be saved.
 
 ### stubb
 
