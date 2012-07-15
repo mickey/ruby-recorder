@@ -22,6 +22,7 @@ Or install it yourself as:
 
 Imagine you want to refactor an endpoint on your backend api and want to make sure the result is the same:
 
+```
   Recorder.config do |c|
     c.verbose = true
     c.stubb = false
@@ -41,16 +42,21 @@ Imagine you want to refactor an endpoint on your backend api and want to make su
     HTTParty.get('http://my_backend/users').parsed_response
   end
 
+```
+
 Executing this code will outputs a diff :
 
+```
   Recorder: result is different from last run
   ---
   - username: Michael Bensoussan- username: Michael
+```
 
 ### Faster tests
 
 The first time you run this test, you will call the backend but for all the following runs `Recorder` will load the result from the YAML file.
 
+```
   class TestRecorder < MiniTest::Unit::TestCase
 
     def setup
@@ -70,19 +76,21 @@ The first time you run this test, you will call the backend but for all the foll
     end
 
   end
-
+```
 
 ## Usage
 
+```
   Recorder.config do |c|
     c.verbose = true
     c.records_dir = 'records/'
     c.stubb = false
   end
+```
 
 ### records_dir
 
-The `records_dir` option
+The `records_dir` option sets the directory in which you're records will be saved.
 
 ### stubb
 
