@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Ruby-recorder by mickey</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Ruby-recorder</h1>
+        <p>Recorder dumps the result of your ruby code to a YAML file for faster tests or to compare the result between two runs.</p>
+
+        <p class="view"><a href="https://github.com/mickey/ruby-recorder">View the Project on GitHub <small>mickey/ruby-recorder</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/mickey/ruby-recorder/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/mickey/ruby-recorder/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/mickey/ruby-recorder">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Ruby Recorder</h1>
+
+<p><a href="http://travis-ci.org/mickey/ruby-recorder"><img src="https://secure.travis-ci.org/mickey/ruby-recorder.png" alt="Build Status"></a></p>
+
+<p>Recorder dumps the result of your ruby code to a YAML file for faster tests or to compare the result between two execution.</p>
+
+<h2>Installation</h2>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<pre><code>gem 'ruby-recorder'
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre><code>$ gem install ruby-recorder
+</code></pre>
+
+<h2>Exemples</h2>
+
+<h3>Refactor</h3>
+
+<p>Imagine you want to refactor an endpoint on your backend api and want to make sure the response is the same:</p>
+
+<pre><code>  Recorder.config do |c|
+    c.verbose = true
+    c.stubb = false
+  end
+
+  # this will call your backend and 
+  # dump the result in refactor.yml
+  # let's say the response is : [{"username"=&gt;"Michael Bensoussan"}]
+  Recorder.dump_to('refactor.yml') do
+    HTTParty.get('http://my_backend/users').parsed_response
+  end
+
+  # this will call your backend and compare the result to
+  # what's in refactor.yml ([{"username"=&gt;"Michael Bensoussan"}])
+  # let's say the new response is [{"username"=&gt;"Michael"}]
+  Recorder.dump_to('refactor.yml') do
+    HTTParty.get('http://my_backend/users').parsed_response
+  end
+
+</code></pre>
+
+<p>Executing this code will outputs a (colored) diff :</p>
+
+<pre><code>  Recorder: result is different from last run
+  ---
+  - username: Michael Bensoussan- username: Michael
+</code></pre>
+
+<h3>Faster tests</h3>
+
+<p>The first time you run this test, you will call the backend but for all the following runs <code>Recorder</code> will load the result from the YAML file.</p>
+
+<pre><code>  class TestRecorder &lt; MiniTest::Unit::TestCase
+
+    def setup
+      Recorder.config do |c|
+        c.verbose = true
+        c.stubb = true
+        c.records_dir = 'backend_responses/'
+      end
+    end
+
+    def test_users
+      users = Recorder.dump_to('refactor.yml') do
+        HTTParty.get('http://my_backend/users').parsed_response
+      end
+
+      assert_equal [{"username"=&gt;"Michael Bensoussan"}], users
+    end
+
+  end
+</code></pre>
+
+<h2>Usage</h2>
+
+<pre><code>  Recorder.config do |c|
+    c.verbose = true
+    c.records_dir = 'records/'
+    c.stubb = false
+  end
+</code></pre>
+
+<h3>records_dir</h3>
+
+<p>The <code>records_dir</code> option sets the directory where your records will be saved.</p>
+
+<h3>stubb</h3>
+
+<p>When <code>stubb = true</code>, your code will only be run once. Future runs will load the result from the yaml file.
+When <code>stubb = false</code>, your code will be run every time.</p>
+
+<h3>verbose</h3>
+
+<p>The <code>verbose</code> option will outputs a nice diff (with the <code>differ</code> gem) if the output is different from the last run.
+Of course this only works if <code>stubb = false</code>.</p>
+
+<h2>Contributing</h2>
+
+<ol>
+<li>Fork it</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Added some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
+</ol>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/mickey">mickey</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
