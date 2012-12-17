@@ -24,7 +24,7 @@ Or install it yourself as:
 
 Imagine you want to refactor an endpoint on your backend api and want to make sure the response is the same:
 
-```
+```ruby
   Recorder.config do |c|
     c.verbose = true
     c.stubb = false
@@ -58,7 +58,7 @@ Executing this code will outputs a (colored) diff :
 
 The first time you run this test, you will call the backend but for all the following runs `Recorder` will load the result from the YAML file.
 
-```
+```ruby
   class TestRecorder < MiniTest::Unit::TestCase
 
     def setup
@@ -82,7 +82,7 @@ The first time you run this test, you will call the backend but for all the foll
 
 ## Usage
 
-```
+```ruby
   Recorder.config do |c|
     c.verbose = true
     c.records_dir = 'records/'
